@@ -1,0 +1,47 @@
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        to_letter = {
+            '2': 'abc', 
+            '3': 'def', 
+            '4': 'ghi', 
+            '5': 'jkl',
+            '6': 'mno', 
+            '7': 'pqrs', 
+            '8': 'tuv', 
+            '9': 'wxyz',
+        }
+        res = []
+        def dfs(i, string):
+            if i == len(digits):
+                res.append(string)
+                return
+            for char in to_letter[digits[i]]:
+                dfs(i + 1, string + char)
+        if digits:
+            dfs(0, '')
+        return res
+
+    def letterCombinationsPop(self, digits: str) -> List[str]:
+        to_letter = {
+            '2': 'abc', 
+            '3': 'def', 
+            '4': 'ghi', 
+            '5': 'jkl',
+            '6': 'mno', 
+            '7': 'pqrs', 
+            '8': 'tuv', 
+            '9': 'wxyz',
+        }
+        res = []
+        buffer = []
+        def dfs(i):
+            if i == len(digits):
+                res.append(''.join(buffer))
+                return
+            for char in to_letter[digits[i]]:
+                buffer.append(char)
+                dfs(i + 1)
+                buffer.pop()
+        if digits:
+            dfs(0)
+        return res
